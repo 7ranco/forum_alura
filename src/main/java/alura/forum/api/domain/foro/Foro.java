@@ -31,6 +31,8 @@ public class Foro {
 
     private Boolean activo;
 
+    public Foro() {
+    }
 
     public Foro(DatosAgregarForo datosAgregarForo, Usuario usuario, Curso curso) {
         this.titulo = datosAgregarForo.titulo();
@@ -105,4 +107,9 @@ public class Foro {
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
+
+    public void desactivarForo() {
+        this.activo = false;
+    }
+
 }

@@ -2,7 +2,6 @@ package alura.forum.api.domain.foro;
 
 import alura.forum.api.domain.curso.Curso;
 import alura.forum.api.domain.curso.CursoRepository;
-import alura.forum.api.domain.curso.DatosRespuestaCursos;
 import alura.forum.api.domain.usuarios.Usuario;
 import alura.forum.api.domain.usuarios.UsuarioRepository;
 import alura.forum.api.infra.error.ValidacionDeIntegridad;
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AgregarForoService {
+public class ForoService {
 
     @Autowired
     private CursoRepository cursoRepository;
@@ -42,5 +41,22 @@ public class AgregarForoService {
                 foro.getAutor().getId(), foro.getCurso().getId());
 
         return datosRespuestaCursos;
+    }
+
+    public Foro actualizar(DatosActualizarForo datosActualizarForo, Foro foro){
+        if(datosActualizarForo.titulo() != null){
+            foro.setTitulo(datosActualizarForo.titulo());
+        }
+
+        if(datosActualizarForo.mensaje() != null){
+            foro.setMensaje(datosActualizarForo.mensaje());
+        }
+
+        if (datosActualizarForo.curso() != null){
+            Curso curso = cursoRepository.getReferenceById(datosActualizarForo.curso());
+            foro.setCurso(curso);
+        }
+
+        return foro;
     }
 }
