@@ -22,6 +22,9 @@ public class Usuario implements UserDetails {
     private String clave;
 
 
+    public Usuario() {
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
@@ -71,5 +74,10 @@ public class Usuario implements UserDetails {
 
     public String getClave() {
         return clave;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + " " + correo + " " + clave + " " + id ;
     }
 }

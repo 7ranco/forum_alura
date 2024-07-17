@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 
 @Table(name = "cursos")
-@Entity(name = "Curso")
+@Entity(name = "curso")
 @EqualsAndHashCode(of = "id")
 public class Curso {
 
@@ -15,6 +15,8 @@ public class Curso {
 
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
+
+    public Curso() {}
 
     public Curso(DatosAgregarCursos datosAgregarCursos) {
         this.nombre = datosAgregarCursos.nombre();

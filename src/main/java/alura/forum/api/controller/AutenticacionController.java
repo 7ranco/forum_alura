@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("login")
+@RequestMapping("/login")
 public class AutenticacionController {
 
     @Autowired
@@ -27,10 +27,9 @@ public class AutenticacionController {
     public ResponseEntity autenticarUsuario(@RequestBody @Valid DatosAutenticacionUsuario datosAutenticacionUsuario){
         var authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.correo(),
                 datosAutenticacionUsuario.clave());
+
         var usuarioAutenticado = authenticationManager.authenticate(authToken);
-
         var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
-
         return ResponseEntity.ok(new DatosJWTToken(JWTtoken));
     }
 }

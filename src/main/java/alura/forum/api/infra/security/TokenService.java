@@ -2,6 +2,7 @@ package alura.forum.api.infra.security;
 
 import alura.forum.api.domain.usuarios.Usuario;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -23,7 +24,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(apiSecret);
             return JWT.create()
-                    .withIssuer("voll med")
+                    .withIssuer("forum alura")
                     .withSubject(usuario.getUsername())
                     .withClaim("id", usuario.getId())
                     .withExpiresAt(generarFechaExpiracion())
@@ -41,11 +42,12 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(apiSecret); // validando firma
             verifier = JWT.require(algorithm)
-                    .withIssuer("forum api")
+                    .withIssuer("forum alura")
                     .build()
                     .verify(token);
             verifier.getSubject();
         } catch (JWTVerificationException exception) {
+            System.out.println(verifier);
             System.out.println(exception.toString());
         }
         if (verifier.getSubject() == null) {
